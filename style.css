@@ -5,7 +5,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: #2d6a6a;
+	background-color: #000000;
+	font-family: 'IBM Plex Mono', monospace;
 }
 
 .wrapper {
@@ -20,8 +21,9 @@ body {
 
 nav h1 {
 	font-size: 3.9rem;
-	color: #e7f6f2;
-	font-family: Arial, Helvetica, sans-serif;
+	color: #07be04;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 200;
 
 	margin: 20px;
 }
@@ -29,18 +31,18 @@ nav h1 {
 .game-container {
 	display: grid;
 	grid-template: repeat(3, 150px) / repeat(3, 150px);
-	border: 6px solid #e7f6f2;
+	border: 2px solid #07be04;
 	margin-bottom: 30px;
 }
 
 .cell {
-	border: 6px solid #e7f6f2;
+	border: 2px solid #07be04;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #e7f6f2;
+	color: #07be04;
 	font-size: 5rem;
-	font-family: 'Rubik Dirt', cursive;
+	font-family: 'IBM Plex Mono', monospace;
 }
 
 .cell:hover {
@@ -51,6 +53,7 @@ nav h1 {
 	display: flex;
 	justify-content: space-around;
 	width: 462px;
+	font-family: 'IBM Plex Mono', monospace;
 }
 
 .players button {
@@ -60,10 +63,19 @@ nav h1 {
 	border-style: none;
 	border-radius: 20px;
 	font-size: 5rem;
-	color: white;
+	color: #049b02;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 200;
+	transition: 0.3s;
 }
 
 .players button:hover {
-	background-color: #ffffff1e;
+	background-color: #0c0c0c;
+	color: #04ff00;
 	cursor: pointer;
+}
+
+#playerTurn {
+	background-color: #08e1041c;
+	color: #04ff00;
 }
