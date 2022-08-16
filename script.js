@@ -7,6 +7,7 @@ const Gameboard = (function () {
 	let playerOne = '';
 	let playerTwo = '';
 	let isGameInitialized = false;
+	let turn = playerOne;
 
 	const initializeGame = (e) => {
 		const target = e.target;
@@ -32,6 +33,15 @@ const Gameboard = (function () {
 	playerX.addEventListener('click', initializeGame);
 	playerO.addEventListener('click', initializeGame);
 
+	const toggleTurn = () => {
+		if (turn === playerOne) {
+			turn = playerTwo;
+		} else {
+			turn = playerOne;
+		}
+		return turn;
+	};
+
 	const boardPositions = [
 		null,
 		null,
@@ -49,8 +59,12 @@ const Gameboard = (function () {
 			console.log('Game is not initialized');
 		} else {
 			const target = e.target;
-			target.textContent = 'X';
-			boardPositions.splice(target.dataset.cellNumber, 1, 'X');
+			target.textContent = toggleTurn();
+			boardPositions.splice(
+				target.dataset.cellNumber,
+				1,
+				target.textContent
+			);
 		}
 	};
 	for (let i = 0; i < 9; i++) {
@@ -61,7 +75,6 @@ const Gameboard = (function () {
 		for (let i = 0; i < 9; i++) {
 			cell[i].textContent = boardPositions[i];
 		}
-		console.log(`${boardPositions}`);
 	};
 	console.log(boardPositions);
 
