@@ -1,54 +1,37 @@
-const playerX = document.querySelector('.playerX');
-const playerO = document.querySelector('.playerO');
+let cell = document.querySelectorAll('.cell');
+let playerX = document.querySelector('.playerX');
+let playerO = document.querySelector('.playerO');
 
-//player One chooses X or O
-const initializeGame = (function () {
-	playerX.dataset.pick = '';
-	playerO.dataset.pick = '';
-
-	const choice = (e) => {
-		if (!(playerX.dataset.pick === '' && playerO.dataset.pick === '')) {
-			return;
-		}
-		if (
-			e.target.classList.contains('playerX') &&
-			playerX.dataset.pick === ''
-		) {
-			Player.playerOne = 'X';
-			playerX.dataset.pick = 'playerOne';
-
-			Player.playerTwo = 'O';
-			playerO.dataset.pick = 'playerTwo';
-
-			console.log('Player One chose X');
-		} else {
-			Player.playerOne = 'O';
-			playerO.dataset.pick = 'playerOne';
-
-			Player.playerTwo = 'X';
-			playerX.dataset.pick = 'playerTwo';
-
-			console.log('Player One chose O');
-		}
-	};
-
-	const isGameInitialized = () => {
-		if (!(playerX.dataset.pick === '' && playerO.dataset.pick === '')) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-	playerX.addEventListener('click', choice);
-	playerO.addEventListener('click', choice);
-
-	return { isGameInitialized };
-})();
-
-//module for keeping track of the board positions
 const Gameboard = (function () {
 	// const boardPositions = ['X', 'X', 'O', 'X', 'O', 'O', 'X', 'O', 'X'];
+	let playerOne = '';
+	let playerTwo = '';
+	let isGameInitialized = false;
+
+	const initializeGame = (e) => {
+		const target = e.target;
+		if (!(playerOne === '' && playerTwo === '')) {
+			return;
+		} else {
+			if (target.classList.contains('playerX')) {
+				if (playerOne === '') {
+					playerOne = 'X';
+					playerTwo = 'O';
+					console.log('Player One is X');
+					console.log('Player Two is O');
+				}
+			} else {
+				playerOne = 'O';
+				playerTwo = 'X';
+				console.log('Player One is O');
+				console.log('Player Two is X');
+			}
+			isGameInitialized = true;
+		}
+	};
+	playerX.addEventListener('click', initializeGame);
+	playerO.addEventListener('click', initializeGame);
+
 	const boardPositions = [
 		null,
 		null,
@@ -61,49 +44,28 @@ const Gameboard = (function () {
 		null,
 	];
 
-	return { boardPositions };
-})();
-
-//function for keeping track of players
-const Player = () => {
-	return { playerOne, playerTwo };
-};
-
-let cell = document.querySelectorAll('.cell');
-
-//updates the game UI when player makes a move
-const renderGameBoard = (function () {
-	const update = () => {
-		for (let i = 0; i < 9; i++) {
-			cell[i].textContent = Gameboard.boardPositions[i];
-		}
-		console.log(`${Gameboard.boardPositions}`);
-	};
-	return { update };
-})();
-
-//controls who's turn it is and sends the move to Gameboard
-const gameControl = (function () {
-	const playerTurn = () => {};
-
 	const makeMove = (e) => {
-		if (initializeGame.isGameInitialized()) {
+		if (!isGameInitialized) {
+			console.log('Game is not initialized');
+		} else {
 			const target = e.target;
 			target.textContent = 'X';
-			Gameboard.boardPositions.splice(
-				target.dataset.cellNumber,
-				1,
-				Player.playerOne
-			);
-		} else {
-			console.log('Game has not been initialized');
-			return;
+			boardPositions.splice(target.dataset.cellNumber, 1, 'X');
 		}
 	};
-
 	for (let i = 0; i < 9; i++) {
 		cell[i].addEventListener('click', makeMove);
 	}
+
+	const update = () => {
+		for (let i = 0; i < 9; i++) {
+			cell[i].textContent = boardPositions[i];
+		}
+		console.log(`${boardPositions}`);
+	};
+	console.log(boardPositions);
+
+	return { update };
 })();
 
-renderGameBoard.update();
+Gameboard.update();
