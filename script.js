@@ -11,6 +11,7 @@ const Gameboard = (function () {
 	let playerTwo = '';
 	let isGameInitialized = false;
 	let turn;
+	let winner = false;
 
 	//Player one chooses 'X' or 'O'
 	const initializeGame = (e) => {
@@ -70,6 +71,10 @@ const Gameboard = (function () {
 	];
 	//fills cell and enters players move into the boardPositions array
 	const makeMove = (e) => {
+		e.stopPropagation();
+		if (winner === true) {
+			return;
+		}
 		if (!isGameInitialized) {
 			console.log('Game is not initialized');
 			const p = document.createElement('p');
@@ -98,6 +103,7 @@ const Gameboard = (function () {
 				}
 			}
 		}
+		isWinner();
 	};
 	for (let i = 0; i < 9; i++) {
 		cell[i].addEventListener('click', makeMove);
@@ -126,25 +132,27 @@ const Gameboard = (function () {
 					if (x === 3) {
 						console.log('X is Winner');
 						const p = document.createElement('p');
-						p.textContent = `> ${turn} is the winner! The winning combination is: [${combo}]`;
+						p.textContent = `> ${turn} is the winner! The winning line is: [${combo}]`;
 						terminal.appendChild(p);
+						winner = true;
 					}
 				} else if (boardPositions[index] === 'O') {
 					o++;
 					if (o === 3) {
 						console.log('O is Winner');
 						const p = document.createElement('p');
-						p.textContent = `> ${turn} is the winner! The winning combination is: [${combo}]`;
+						p.textContent = `> ${turn} is the winner! The winning line is: [${combo}]`;
 						terminal.appendChild(p);
+						winner = true;
 					}
 				}
 			}
 		}
 	};
 
-	for (let i = 0; i < 9; i++) {
-		cell[i].addEventListener('click', isWinner);
-	}
+	// for (let i = 0; i < 9; i++) {
+	// 	cell[i].addEventListener('click', isWinner);
+	// }
 
 	//updates and renders the game UI every time a move is made
 	const update = () => {
@@ -159,4 +167,3 @@ const Gameboard = (function () {
 })();
 
 Gameboard.update();
-Gameboard.isWinner();
