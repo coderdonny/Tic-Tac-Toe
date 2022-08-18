@@ -3,6 +3,8 @@ let cell = document.querySelectorAll('.cell');
 const playerX = document.querySelector('.playerX');
 const playerO = document.querySelector('.playerO');
 
+const terminal = document.querySelector('.root');
+
 //module function that stores all fundamental functions that make up the game
 const Gameboard = (function () {
 	let playerOne = '';
@@ -24,6 +26,9 @@ const Gameboard = (function () {
 					playerTwo = 'O';
 					console.log('Player One is X');
 					console.log('Player Two is O');
+					const p = document.createElement('p');
+					p.textContent = `> X goes first`;
+					terminal.appendChild(p);
 				}
 			} else {
 				playerO.setAttribute('id', 'playerTurn');
@@ -31,6 +36,9 @@ const Gameboard = (function () {
 				playerTwo = 'X';
 				console.log('Player One is O');
 				console.log('Player Two is X');
+				const p = document.createElement('p');
+				p.textContent = `> O goes first`;
+				terminal.appendChild(p);
 			}
 			isGameInitialized = true;
 		}
@@ -64,6 +72,9 @@ const Gameboard = (function () {
 	const makeMove = (e) => {
 		if (!isGameInitialized) {
 			console.log('Game is not initialized');
+			const p = document.createElement('p');
+			p.textContent = `> Player One, please choose X or O`;
+			terminal.appendChild(p);
 		} else {
 			const target = e.target;
 			if (target.textContent === 'X' || target.textContent === 'O') {
@@ -75,6 +86,9 @@ const Gameboard = (function () {
 					1,
 					target.textContent
 				);
+				const p = document.createElement('p');
+				p.textContent = `> ${turn} chose cell ${target.dataset.cellNumber}`;
+				terminal.appendChild(p);
 				if (playerX.hasAttribute('id', 'playerTurn')) {
 					playerX.removeAttribute('id', 'playerTurn');
 					playerO.setAttribute('id', 'playerTurn');
@@ -111,11 +125,17 @@ const Gameboard = (function () {
 					x++;
 					if (x === 3) {
 						console.log('X is Winner');
+						const p = document.createElement('p');
+						p.textContent = `> ${turn} is the winner! The winning combination is: [${combo}]`;
+						terminal.appendChild(p);
 					}
 				} else if (boardPositions[index] === 'O') {
 					o++;
 					if (o === 3) {
 						console.log('O is Winner');
+						const p = document.createElement('p');
+						p.textContent = `> ${turn} is the winner! The winning combination is: [${combo}]`;
+						terminal.appendChild(p);
 					}
 				}
 			}
