@@ -89,14 +89,54 @@ const Gameboard = (function () {
 		cell[i].addEventListener('click', makeMove);
 	}
 
+	const isWinner = () => {
+		const winningCombinations = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6],
+		];
+
+		for (let j = 0; j < 8; j++) {
+			let combo = winningCombinations[j];
+			let x = 0;
+			let o = 0;
+			for (let i = 0; i < 3; i++) {
+				let index = combo[i];
+				if (boardPositions[index] === 'X') {
+					x++;
+					if (x === 3) {
+						console.log('X is Winner');
+					}
+				} else if (boardPositions[index] === 'O') {
+					o++;
+					if (o === 3) {
+						console.log('O is Winner');
+					}
+				}
+			}
+		}
+	};
+
+	for (let i = 0; i < 9; i++) {
+		cell[i].addEventListener('click', isWinner);
+	}
+
 	//updates and renders the game UI every time a move is made
 	const update = () => {
 		for (let i = 0; i < 9; i++) {
 			cell[i].textContent = boardPositions[i];
 		}
 	};
+
 	console.log(boardPositions);
-	return { update };
+
+	return { update, isWinner };
 })();
 
 Gameboard.update();
+Gameboard.isWinner();
