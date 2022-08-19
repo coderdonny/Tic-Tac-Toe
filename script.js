@@ -135,6 +135,10 @@ const Gameboard = (function () {
 						p.textContent = `> ${turn} is the winner! The winning line is: [${combo}]`;
 						terminal.appendChild(p);
 						winner = true;
+						cell[combo[0]].setAttribute('id', 'cellLine');
+						cell[combo[1]].setAttribute('id', 'cellLine');
+						cell[combo[2]].setAttribute('id', 'cellLine');
+						playerO.removeAttribute('id', 'playerTurn');
 					}
 				} else if (boardPositions[index] === 'O') {
 					o++;
@@ -144,15 +148,15 @@ const Gameboard = (function () {
 						p.textContent = `> ${turn} is the winner! The winning line is: [${combo}]`;
 						terminal.appendChild(p);
 						winner = true;
+						cell[combo[0]].setAttribute('id', 'cellLine');
+						cell[combo[1]].setAttribute('id', 'cellLine');
+						cell[combo[2]].setAttribute('id', 'cellLine');
+						playerX.removeAttribute('id', 'playerTurn');
 					}
 				}
 			}
 		}
 	};
-
-	// for (let i = 0; i < 9; i++) {
-	// 	cell[i].addEventListener('click', isWinner);
-	// }
 
 	//updates and renders the game UI every time a move is made
 	const update = () => {
