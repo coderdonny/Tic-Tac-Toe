@@ -101,7 +101,7 @@ nav h1 {
 }
 
 #cellLine {
-	/* background-color: #04ff000c; */
+	background-color: rgba(0, 255, 255, 0.034);
 	color: #fff;
 	text-shadow: 0 0 5px #04ff00, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff,
 		0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff;
@@ -109,4 +109,5 @@ nav h1 {
 	-webkit-box-shadow: 0px 0px 53px 0px rgba(45, 255, 196, 1);
 	-moz-box-shadow: 0px 0px 53px 0px rgba(45, 255, 196, 1);
 	box-shadow: 0px 0px 53px 0px rgba(45, 255, 196, 1);
+	border: 1px solid rgb(0, 255, 255);
 }
