@@ -71,7 +71,6 @@ const Gameboard = (function () {
 	];
 	//fills cell and enters players move into the boardPositions array
 	const makeMove = (e) => {
-		e.stopPropagation();
 		if (winner === true) {
 			return;
 		}
