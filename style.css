@@ -28,6 +28,23 @@ body {
 	margin-left: 35px;
 }
 
+.terminal-wrapper label {
+	color: #07be04;
+	text-align: center;
+	margin-top: 15px;
+}
+
+input[type='checkbox'] {
+	background-color: #000000;
+	accent-color: #04ff00;
+	-ms-transform: scale(1.5); /* IE */
+	-moz-transform: scale(1.5); /* FF */
+	-webkit-transform: scale(1.5); /* Safari and Chrome */
+	-o-transform: scale(1.5); /* Opera */
+	transform: scale(1.5);
+	padding: 10px;
+}
+
 .resetBtn {
 	padding: 10px 50px;
 	background-color: transparent;

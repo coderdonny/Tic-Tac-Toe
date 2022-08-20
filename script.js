@@ -7,6 +7,8 @@ const terminal = document.querySelector('.root');
 
 const resetBtn = document.querySelector('.resetBtn');
 
+const aiCheckBox = document.querySelector('.aiCB');
+
 //module function that stores all fundamental functions that make up the game
 const Gameboard = (function () {
 	let playerOne = '';
@@ -14,6 +16,7 @@ const Gameboard = (function () {
 	let isGameInitialized = false;
 	let turn;
 	let winner = false;
+	let aiMode = true;
 
 	//Player one chooses 'X' or 'O'
 	const initializeGame = (e) => {
@@ -26,6 +29,7 @@ const Gameboard = (function () {
 				if (playerOne === '') {
 					playerX.setAttribute('id', 'playerTurn');
 					playerOne = 'X';
+					turn = playerOne;
 					playerTwo = 'O';
 					console.log('Player One is X');
 					console.log('Player Two is O');
@@ -36,6 +40,7 @@ const Gameboard = (function () {
 			} else {
 				playerO.setAttribute('id', 'playerTurn');
 				playerOne = 'O';
+				turn = playerOne;
 				playerTwo = 'X';
 				console.log('Player One is O');
 				console.log('Player Two is X');
@@ -76,7 +81,7 @@ const Gameboard = (function () {
 			if (target.textContent === 'X' || target.textContent === 'O') {
 				return;
 			} else {
-				target.textContent = toggleTurn();
+				target.textContent = turn;
 				boardPositions.splice(
 					target.dataset.cellNumber,
 					1,
@@ -92,10 +97,15 @@ const Gameboard = (function () {
 					playerO.removeAttribute('id', 'playerTurn');
 					playerX.setAttribute('id', 'playerTurn');
 				}
+				toggleTurn();
 			}
 		}
 		isWinner();
+		if (aiMode === true && turn === playerTwo && winner === false) {
+			setTimeout(aiPlayer, 900);
+		}
 	};
+
 	for (let i = 0; i < 9; i++) {
 		cell[i].addEventListener('click', makeMove);
 	}
@@ -161,6 +171,44 @@ const Gameboard = (function () {
 			}
 		}
 	};
+
+	//AI player move generator
+	const aiPlayer = () => {
+		if (aiMode === true && turn === playerTwo) {
+			// let randomNumber = Math.floor(Math.random() * 10);
+			// let legalMove;
+			for (let i = 0; i < 9; i++) {
+				if (boardPositions[i] === null) {
+					boardPositions.splice(i, 1, playerTwo);
+					const p = document.createElement('p');
+					p.textContent = `> AI chose cell ${i}`;
+					terminal.appendChild(p);
+					if (playerX.hasAttribute('id', 'playerTurn')) {
+						playerX.removeAttribute('id', 'playerTurn');
+						playerO.setAttribute('id', 'playerTurn');
+					} else if (playerO.hasAttribute('id', 'playerTurn')) {
+						playerO.removeAttribute('id', 'playerTurn');
+						playerX.setAttribute('id', 'playerTurn');
+					}
+
+					update();
+					isWinner();
+					toggleTurn();
+					break;
+				}
+			}
+		}
+	};
+
+	aiCheckBox.addEventListener('change', function () {
+		if (this.checked) {
+			console.log('Checkbox is checked..');
+			aiMode = true;
+		} else {
+			console.log('Checkbox is not checked..');
+			aiMode = false;
+		}
+	});
 
 	//updates and renders the game UI every time a move is made
 	const update = () => {
