@@ -16,7 +16,7 @@ const Gameboard = (function () {
 	let isGameInitialized = false;
 	let turn;
 	let winner = false;
-	let aiMode = true;
+	let aiMode;
 
 	//Player one chooses 'X' or 'O'
 	const initializeGame = (e) => {
@@ -175,13 +175,12 @@ const Gameboard = (function () {
 	//AI player move generator
 	const aiPlayer = () => {
 		if (aiMode === true && turn === playerTwo) {
-			// let randomNumber = Math.floor(Math.random() * 10);
-			// let legalMove;
 			for (let i = 0; i < 9; i++) {
-				if (boardPositions[i] === null) {
-					boardPositions.splice(i, 1, playerTwo);
+				let randomNumber = Math.floor(Math.random() * 10);
+				if (boardPositions[randomNumber] === null) {
+					boardPositions.splice(randomNumber, 1, playerTwo);
 					const p = document.createElement('p');
-					p.textContent = `> AI chose cell ${i}`;
+					p.textContent = `> AI chose cell ${randomNumber}`;
 					terminal.appendChild(p);
 					if (playerX.hasAttribute('id', 'playerTurn')) {
 						playerX.removeAttribute('id', 'playerTurn');
@@ -190,7 +189,6 @@ const Gameboard = (function () {
 						playerO.removeAttribute('id', 'playerTurn');
 						playerX.setAttribute('id', 'playerTurn');
 					}
-
 					update();
 					isWinner();
 					toggleTurn();
