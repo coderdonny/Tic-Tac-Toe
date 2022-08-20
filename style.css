@@ -17,9 +17,41 @@ body {
 	background-color: #08e1040d;
 	color: #07be04;
 	padding-left: 15px;
-	margin-left: 35px;
+
 	border-radius: 8px;
 	font-size: 13px;
+}
+
+.terminal-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin-left: 35px;
+}
+
+.resetBtn {
+	padding: 10px 50px;
+	background-color: transparent;
+	border-style: none;
+	border-radius: 8px;
+	font-size: 1.5rem;
+	color: #049b02;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 200;
+	transition: 0.4s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-top: 15px;
+}
+
+.resetBtn img {
+	width: 1.2rem;
+}
+
+.resetBtn:hover {
+	background-color: #08e1040d;
+	cursor: pointer;
 }
 
 .terminal p {

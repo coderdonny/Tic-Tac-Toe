@@ -5,6 +5,8 @@ const playerO = document.querySelector('.playerO');
 
 const terminal = document.querySelector('.root');
 
+const resetBtn = document.querySelector('.resetBtn');
+
 //module function that stores all fundamental functions that make up the game
 const Gameboard = (function () {
 	let playerOne = '';
@@ -58,17 +60,7 @@ const Gameboard = (function () {
 	};
 
 	//stores players positions
-	const boardPositions = [
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-	];
+	let boardPositions = [null, null, null, null, null, null, null, null, null];
 	//fills cell and enters players move into the boardPositions array
 	const makeMove = (e) => {
 		if (winner === true) {
@@ -138,6 +130,7 @@ const Gameboard = (function () {
 						cell[combo[1]].setAttribute('id', 'cellLine');
 						cell[combo[2]].setAttribute('id', 'cellLine');
 						playerO.removeAttribute('id', 'playerTurn');
+						playerX.removeAttribute('id', 'playerTurn');
 					}
 				} else if (boardPositions[index] === 'O') {
 					o++;
@@ -151,6 +144,7 @@ const Gameboard = (function () {
 						cell[combo[1]].setAttribute('id', 'cellLine');
 						cell[combo[2]].setAttribute('id', 'cellLine');
 						playerX.removeAttribute('id', 'playerTurn');
+						playerO.removeAttribute('id', 'playerTurn');
 					}
 				}
 			}
@@ -163,6 +157,29 @@ const Gameboard = (function () {
 			cell[i].textContent = boardPositions[i];
 		}
 	};
+
+	//resets gameboard to allow new game
+	const reset = () => {
+		console.log('reset button clicked');
+		boardPositions = [null, null, null, null, null, null, null, null, null];
+		for (let i = 0; i < 9; i++) {
+			cell[i].textContent = '';
+			cell[i].removeAttribute('id', 'cellLine');
+		}
+		playerOne = '';
+		playerTwo = '';
+		isGameInitialized = false;
+		turn;
+		winner = false;
+		while (terminal.lastElementChild) {
+			terminal.removeChild(terminal.lastElementChild);
+		}
+		playerX.removeAttribute('id', 'playerTurn');
+		playerO.removeAttribute('id', 'playerTurn');
+		console.log(boardPositions);
+	};
+
+	resetBtn.addEventListener('click', reset);
 
 	console.log(boardPositions);
 
