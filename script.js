@@ -149,6 +149,17 @@ const Gameboard = (function () {
 				}
 			}
 		}
+		let cellPicked = 0;
+		for (let i = 0; i < 9; i++) {
+			if (boardPositions[i] !== null) {
+				cellPicked++;
+				if (cellPicked === 9 && winner === false) {
+					const p = document.createElement('p');
+					p.textContent = `> It's a Draw!`;
+					terminal.appendChild(p);
+				}
+			}
+		}
 	};
 
 	//updates and renders the game UI every time a move is made
