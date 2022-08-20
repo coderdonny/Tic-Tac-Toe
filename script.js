@@ -169,7 +169,7 @@ const Gameboard = (function () {
 		playerOne = '';
 		playerTwo = '';
 		isGameInitialized = false;
-		turn;
+		turn = '';
 		winner = false;
 		while (terminal.lastElementChild) {
 			terminal.removeChild(terminal.lastElementChild);
