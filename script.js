@@ -71,6 +71,9 @@ const Gameboard = (function () {
 		if (winner === true) {
 			return;
 		}
+		if (turn === playerTwo && aiMode === true) {
+			return;
+		}
 		if (!isGameInitialized) {
 			console.log('Game is not initialized');
 			const p = document.createElement('p');
